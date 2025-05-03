@@ -1,3 +1,4 @@
+import css from '@eslint/css';
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import noBarrelFiles from 'eslint-plugin-no-barrel-files';
@@ -9,12 +10,20 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  stylistic.configs.customize({
-    indent: 2,
-    jsx: true,
-    quotes: 'single',
-    semi: true,
-  }),
+  {
+    files: ['**/*.css'],
+    language: 'css/css',
+    ...css.configs.recommended,
+  },
+  {
+    files: ['**/*.{js,ts,tsx}'],
+    ...stylistic.configs.customize({
+      indent: 2,
+      jsx: true,
+      quotes: 'single',
+      semi: true,
+    }),
+  },
   noBarrelFiles.flat,
   { ignores: ['dist'] },
   {
